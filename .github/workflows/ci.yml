@@ -16,7 +16,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - run: |
         set -x
-        cd server
         docker build . -t xmorse/nginx-for-react:latest
         docker push xmorse/nginx-for-react:latest
     
