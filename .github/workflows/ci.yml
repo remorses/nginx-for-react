@@ -1,0 +1,22 @@
+name: Python package
+
+on: [push]
+
+
+jobs:
+  all:
+    runs-on: ubuntu-latest
+    steps:
+    # - run: sudo apt-get update && sudo apt-get install -y dumb-init cmake bison flex git jq
+    - uses: actions/checkout@master
+    - uses: azure/container-actions/docker-login@master
+      with:
+        # login-server: contoso.azurecr.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - run: |
+        set -x
+        cd server
+        docker build . -t xmorse/nginx-for-react:latest
+        docker push xmorse/nginx-for-react:latest
+    
